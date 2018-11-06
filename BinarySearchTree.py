@@ -35,6 +35,16 @@ class BinaryNode:
             self.value = childKey
         return self
     
+    def inorder(self):
+        if self.left:
+            for v in self.left.inorder():
+                yield v
+        yield self.value
+
+        if self.right:
+            for v in self.right.inorder():
+                yield v
+
     def removeFromParent(self, parent, value):
         if parent:
             return parent.remove(value)
@@ -43,9 +53,9 @@ class BinaryNode:
 
 
 class BinaryTree:
-    def __init__(self):
+    def __init__(self, *values):
         self.root = None
-    
+
     def add(self, value):
         if self.root is None:
             self.root = BinaryNode(value)
@@ -66,3 +76,8 @@ class BinaryTree:
             else:
                 return True
         return False
+    
+    def __iter__(self):
+        if self.root:
+            for v in self.root.inorder():
+                yield v
