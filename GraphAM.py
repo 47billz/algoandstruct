@@ -17,7 +17,7 @@ class DirectedGraphAM:
         ''' add an edge u - v if it does not exist.'''
         if not u in self.vertices:
             self.vertices[u] = {}
-        self.vertices[u][v] = weight #connect the new vertice to u with an edge of a certain weight
+        self.vertices[u][v] = weight #connect the new vertex to the targert v with an edge of a certain weight
     
     def neighbors(self, u):
         ''' generate neighbors for a vertices'''
