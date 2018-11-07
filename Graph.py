@@ -48,3 +48,49 @@ class Graph:
             self.addVertex(v)
             for neighbor in edges[v]:
                 self.addEdge(neighbor,v)
+
+white = 0
+Gray = 1
+Black = 2
+
+class DepthFirstTraversal:
+    
+    def __init__(self, graph, s):
+        ''' Initiate a DFS traversal of Graph. '''
+        self.graph = graph
+        self.start = s
+        self.color = {}
+        self.pred = {}
+
+        #Cleanup O(n)
+        for v in graph.edges:
+            self.color[v] = white
+            self.pred[v] = None
+        
+        self.dfs_visit(s)
+
+    def dfs_visit(self, u):
+        '''recursive traversal of grayph using DFS. '''
+
+        self.color[u] = Gray    # visited, but undecided
+
+        for v in self.edges[u]:
+            if self.color[v] is white: #Not visited
+                self.pred[v] = u    #Keep track of visit
+                self.dfs_visit(v)   #recursively vist each neighbourhood
+
+        self.color[u] = Black   #Dead end
+
+    def solution(self, v):
+        if v not in self.graph.edges:
+            return None
+        
+        if self.pred[v] is None: # if a vertice is not reachable
+            return None
+
+        path = [v]
+        while v != self.start:
+            v = self.pred[v]
+            path.insert(0, v)
+
+        return path
